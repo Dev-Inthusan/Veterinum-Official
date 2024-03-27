@@ -19,7 +19,7 @@ export default function Payment() {
     const { user } = useSelector(state => state.authState)
     const {items:cartItems, shippingInfo } = useSelector(state => state.cartState)
     const { error:orderError } = useSelector(state => state.orderState)
-
+  
     const paymentData = {
         amount : Math.round( orderInfo.totalPrice * 100),
         shipping :{
@@ -65,7 +65,7 @@ export default function Payment() {
         e.preventDefault();
         document.querySelector('#pay_btn').disabled = true;
         try {
-            const {data} = await axios.post('/api/v1/payment/process', paymentData)
+            const {data} = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/payment/process`, paymentData,{withCredentials: true })
             const clientSecret = data.client_secret
             const result = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {

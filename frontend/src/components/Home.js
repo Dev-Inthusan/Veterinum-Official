@@ -38,14 +38,14 @@ export default function Home() {
 
     return (
         <>
-         <div class="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="hero-text mdl-typography--text-center">
-        <h1 class="mdl-typography--display-2"><b> Discover outstanding veterinarians here</b> </h1>
-        <p class="mdl-typography--headline">
+         <div className="hero-section">
+    <div className="hero-overlay"></div>
+    <div className="hero-text mdl-typography--text-center">
+        <h1 className="mdl-typography--display-2"><b> Discover outstanding veterinarians here</b> </h1>
+        <p className="mdl-typography--headline">
                 Connecting you with <b>compassionate veterinarians</b> all around you.
         </p>
-        {/* <a href="/product" class="vet-btn">Find Veterinarians</a> */}
+        {/* <a href="/product" className="vet-btn">Find Veterinarians</a> */}
     </div>
 </div>
 

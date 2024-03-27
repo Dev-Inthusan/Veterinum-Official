@@ -6,7 +6,7 @@ export const getProducts = (keyword, price, category, rating, currentPage) => as
 
     try {  
         dispatch(productsRequest()) 
-        let link = `/api/v1/products?page=${currentPage}`;
+        let link = `${process.env.REACT_APP_BACKEND_URL}/api/v1/products?page=${currentPage}`;
         
         if(keyword) {
             link += `&keyword=${keyword}`
@@ -35,7 +35,7 @@ export const getProduct = id => async (dispatch) => {
 
     try {  
         dispatch(productRequest()) 
-        const { data }  =  await axios.get(`/api/v1/product/${id}`);
+        const { data }  =  await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/product/${id}`,{withCredentials:true});
         dispatch(productSuccess(data))
     } catch (error) {
         //handle error
@@ -51,9 +51,10 @@ export const createReview = reviewData => async (dispatch) => {
         const config = {
             headers : {
                 'Content-type': 'application/json'
-            }
+            }, 
+            withCredentials: true 
         }
-        const { data }  =  await axios.put(`/api/v1/review`,reviewData, config);
+        const { data }  =  await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/v1/review`,reviewData, config);
         dispatch(createReviewSuccess(data))
     } catch (error) {
         //handle error
@@ -66,7 +67,7 @@ export const getAdminProducts  =  async (dispatch) => {
 
     try {  
         dispatch(adminProductsRequest()) 
-        const { data }  =  await axios.get(`/api/v1/admin/products`);
+        const { data }  =  await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/admin/products`,{withCredentials:true});
         dispatch(adminProductsSuccess(data))
     } catch (error) {
         //handle error
@@ -79,7 +80,7 @@ export const createNewProduct  =  productData => async (dispatch) => {
 
     try {  
         dispatch(newProductRequest()) 
-        const { data }  =  await axios.post(`/api/v1/admin/product/new`, productData);
+        const { data }  =  await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/admin/product/new`, productData,{withCredentials:true});
         dispatch(newProductSuccess(data))
     } catch (error) {
         //handle error
@@ -92,7 +93,7 @@ export const deleteProduct  =  id => async (dispatch) => {
 
     try {  
         dispatch(deleteProductRequest()) 
-        await axios.delete(`/api/v1/admin/product/${id}`);
+        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/v1/admin/product/${id}`,{withCredentials:true});
         dispatch(deleteProductSuccess())
     } catch (error) {
         //handle error
@@ -105,7 +106,7 @@ export const updateProduct  =  (id, productData) => async (dispatch) => {
 
     try {  
         dispatch(updateProductRequest()) 
-        const { data }  =  await axios.put(`/api/v1/admin/product/${id}`, productData);
+        const { data }  =  await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/v1/admin/product/${id}`, productData,{withCredentials:true});
         dispatch(updateProductSuccess(data))
     } catch (error) {
         //handle error
@@ -119,7 +120,7 @@ export const getReviews =  id => async (dispatch) => {
 
     try {  
         dispatch(reviewsRequest()) 
-        const { data }  =  await axios.get(`/api/v1/admin/reviews`,{params: {id}});
+        const { data }  =  await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/admin/reviews`,{withCredentials:true},{params: {id}});
         dispatch(reviewsSuccess(data))
     } catch (error) {
         //handle error
@@ -132,7 +133,7 @@ export const deleteReview =  (productId, id) => async (dispatch) => {
 
     try {  
         dispatch(deleteReviewRequest()) 
-        await axios.delete(`/api/v1/admin/review`,{params: {productId, id}});
+        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/v1/admin/review`,{params: {productId, id}},{withCredentials:true});
         dispatch(deleteReviewSuccess())
     } catch (error) {
         //handle error
